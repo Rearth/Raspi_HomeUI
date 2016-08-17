@@ -5,17 +5,17 @@
  */
 package rearth.raspi_HomeUI;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Darkp
  */
 public class HomeUI_main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form HomeUI_main
-     */
     public HomeUI_main() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
 
     /**
@@ -31,10 +31,16 @@ public class HomeUI_main extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setText("Hallo Welt!");
 
-        jButton1.setText("Text");
+        jButton1.setText("End now");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,9 +69,13 @@ public class HomeUI_main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        System.exit(0);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -93,7 +103,9 @@ public class HomeUI_main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeUI_main().setVisible(true);
+                HomeUI_main mainUI;
+                mainUI = new HomeUI_main();
+                mainUI.setVisible(true);
             }
         });
     }
