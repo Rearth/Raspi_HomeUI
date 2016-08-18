@@ -10,6 +10,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
@@ -29,8 +33,9 @@ workout medium 18 08 2016
  */
 public class Fitness {
     
-    public static String[][] Activities = new String[5][3];
+    public static String[][] Activities = null;
     static int NumOfElements = 0;
+    public static String DataFilePath = "Error";
     
     public static void init() {
         
@@ -46,6 +51,9 @@ public class Fitness {
         }  
         
         String FitnessDataPath = folderPath + "/Activies.txt";
+        DataFilePath = FitnessDataPath;
+        
+        System.out.println("Path: " + folderPath);
         
         File ActiviesData = new File((FitnessDataPath));
         if (!ActiviesData.exists()) {
@@ -94,7 +102,7 @@ public class Fitness {
         
         System.out.println("Fitness-Elemente: " + NumOfElements);
         
-        String lastActivities[][] = new String[i][5];       //Aufbaus: 0=type; 1=dauer; 2 3 4: dd MM yyyy
+        String lastActivities[][] = new String[512][5];       //Aufbaus: 0=type; 1=dauer; 2 3 4: dd MM yyyy
         
         for (int k = 0; k < i; k++) {
             
@@ -119,14 +127,68 @@ public class Fitness {
         
     }
     
-    public static void setPanels(JLabel Labels[]){
+    public static void updatePanels(JLabel Labels[]){
         
         int Activity = NumOfElements - 5;
         
         for (int curLabel = 0; curLabel <= 4; curLabel ++, Activity++ ) {
-            Labels[curLabel].setText(Activities[Activity][0] + " am " + Activities[Activity][2] + "." + Activities[Activity][3]);
+            
+            int Datum[] = {Integer.valueOf(Activities[Activity][2]), Integer.valueOf(Activities[Activity][3]), Integer.valueOf(Activities[Activity][4])};
+            
+            String DateText = rearth.raspi_HomeUI.Helpers.TimeService.getniceFormat(Datum);
+            
+            Labels[curLabel].setText(getNiceName(Activities[Activity][0]) + DateText);
         }
     
+    }
+    
+    static String getNiceName(String Art) {
+        
+        String Text = "Unknown";
+        
+        switch(Art) {
+            case "running":
+                Text = "Joggen";
+                break;
+            case "bike":
+                Text = "Rad Fahren";
+                break;
+            case "workout":
+                Text = "Workout";
+                break;
+        }
+        
+        return Text;
+    }
+    
+    public static void AddActivity(String Type, String length, int Date[]) {
+        
+        Activities[NumOfElements][0] = Type;
+        Activities[NumOfElements][1] = length;
+        Activities[NumOfElements][2] = Integer.toString(Date[0]);
+        Activities[NumOfElements][3] = Integer.toString(Date[1]);
+        Activities[NumOfElements][4] = Integer.toString(Date[2]);
+        
+        String WriteString = System.getProperty("line.separator") + Type + "-" + length + "-" + Integer.toString(Date[0])+ "-" + Integer.toString(Date[1])+ "-" + Integer.toString(Date[2]);
+        
+        try {
+            Files.write(Paths.get(DataFilePath), WriteString.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException ex) {
+            Logger.getLogger(Fitness.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        /*try {
+            PrintWriter writer= new PrintWriter(DataFilePath);
+            writer.append(WriteString);
+            //writer.printf(WriteString);
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Fitness.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
+        System.out.println("Added Activity: " + Activities[NumOfElements][0] + Activities[NumOfElements][1] + Activities[NumOfElements][2] + Activities[NumOfElements][3] + Activities[NumOfElements][4]);
+        
+        NumOfElements++;
     }
     
 }

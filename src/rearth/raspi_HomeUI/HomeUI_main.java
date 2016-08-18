@@ -18,8 +18,8 @@ import rearth.raspi_HomeUI.Helpers.Fitness;
  */
 public class HomeUI_main extends javax.swing.JFrame {
 
-    String MONTHS[] ={"Nichts", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"};
-    String TAGE[] = {null, "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
+    final String MONTHS[] ={"Nichts", "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"};
+    final String TAGE[] = {null, "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
     int numOfUpdates = 0;
     int quarters = 0;
     
@@ -33,11 +33,13 @@ public class HomeUI_main extends javax.swing.JFrame {
         Weather.showWeather(TemperaturLabel, Regenlabel, LuftLabel, WindLabel, OrtsLabel, WolkenLabel);
         Fitness.init();
         JLabel Labels[] = {ActivityData1, ActivityData2, ActivityData3, ActivityData4, ActivityData5};
-        Fitness.setPanels(Labels);
+        Fitness.updatePanels(Labels);
         
         System.out.println(" --------- Starting up periodic Funktions ----------");
         HalfMinTasks();
         QuarterHourTasks();
+        
+        System.out.println(" --------------------- All Done --------------------");
     }
     
     private void updateTime() {
@@ -55,6 +57,8 @@ public class HomeUI_main extends javax.swing.JFrame {
             numOfUpdates++;
             System.out.println(" --------------- 30sec Update #" + Integer.toString(numOfUpdates) + " -------------------");
             updateTime();
+            int Date[] = {18, 8, 2016};
+            Fitness.AddActivity("workout", "long", Date);
         };
         new javax.swing.Timer(delay, taskPerformer).start();
     }
@@ -91,9 +95,9 @@ public class HomeUI_main extends javax.swing.JFrame {
             time = "0" + Integer.toString(Time[0]) + ":0" + Integer.toString(Time[1]);
         }
         
-        int dayofWeek = rearth.raspi_HomeUI.Helpers.TimeService.getDayOfWeek(Date);
+        int dayofWeek = rearth.raspi_HomeUI.Helpers.TimeService.getDayOfWeek();
         
-        TimeDisplay.setText("<html><span style='font-size:40px'><font face=\"verdana\"><b></" + time + "</b></font></span><br><font size=\"5\">" + TAGE[dayofWeek] + ", " + day + "." + MONTHS[Date[1]] + "</font></html>");
+        TimeDisplay.setText("<html><span style='font-size:45px'><font face=\"verdana\"><b></" + time + "</b></font></span><br><font size=\"5\">" + TAGE[dayofWeek] + ", " + day + "." + MONTHS[Date[1]] + "</font></html>");
         
     }
 
@@ -117,6 +121,15 @@ public class HomeUI_main extends javax.swing.JFrame {
         ActivityData3 = new javax.swing.JLabel();
         ActivityData4 = new javax.swing.JLabel();
         ActivityData5 = new javax.swing.JLabel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        jToggleButton5 = new javax.swing.JToggleButton();
+        jToggleButton6 = new javax.swing.JToggleButton();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jToggleButton7 = new javax.swing.JToggleButton();
+        jToggleButton8 = new javax.swing.JToggleButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -192,47 +205,106 @@ public class HomeUI_main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        FitnessPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         ActivityData1.setText("jLabel2");
+        ActivityData1.setFocusable(false);
+        FitnessPanel.add(ActivityData1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 201, 47));
 
         ActivityData2.setText("jLabel3");
+        FitnessPanel.add(ActivityData2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 64, 201, 50));
 
         ActivityData3.setText("jLabel4");
+        FitnessPanel.add(ActivityData3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 201, 51));
 
         ActivityData4.setText("jLabel5");
+        FitnessPanel.add(ActivityData4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 177, 201, 49));
 
         ActivityData5.setText("jLabel6");
+        FitnessPanel.add(ActivityData5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 232, 201, 39));
 
-        javax.swing.GroupLayout FitnessPanelLayout = new javax.swing.GroupLayout(FitnessPanel);
-        FitnessPanel.setLayout(FitnessPanelLayout);
-        FitnessPanelLayout.setHorizontalGroup(
-            FitnessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FitnessPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(FitnessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ActivityData5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ActivityData4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ActivityData3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FitnessPanelLayout.createSequentialGroup()
-                        .addComponent(ActivityData2, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                        .addGap(174, 174, 174))
-                    .addComponent(ActivityData1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        FitnessPanelLayout.setVerticalGroup(
-            FitnessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FitnessPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ActivityData1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ActivityData2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ActivityData3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ActivityData4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ActivityData5, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jToggleButton1.setText("Workout");
+        jToggleButton1.setFocusable(false);
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 80, -1));
+
+        jToggleButton2.setSelected(true);
+        jToggleButton2.setText("Joggen");
+        jToggleButton2.setFocusable(false);
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 70, -1));
+
+        jToggleButton3.setText("Radeln");
+        jToggleButton3.setFocusable(false);
+        jToggleButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton3ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 70, -1));
+
+        jToggleButton5.setSelected(true);
+        jToggleButton5.setText("Mittel");
+        jToggleButton5.setFocusable(false);
+        jToggleButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton5ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 70, -1));
+
+        jToggleButton6.setText("Kurz");
+        jToggleButton6.setFocusable(false);
+        jToggleButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton6ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 70, -1));
+
+        jToggleButton4.setText("Lang");
+        jToggleButton4.setFocusable(false);
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton4ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, 80, -1));
+
+        jToggleButton7.setSelected(true);
+        jToggleButton7.setText("Heute");
+        jToggleButton7.setFocusable(false);
+        jToggleButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton7ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 110, 110, -1));
+
+        jToggleButton8.setText("Gestern");
+        jToggleButton8.setFocusable(false);
+        jToggleButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton8ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jToggleButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 110, -1));
+
+        jButton2.setText("Add!");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        FitnessPanel.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 110, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -284,6 +356,93 @@ public class HomeUI_main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    String SelectedType = "running";
+    String SelectedLength = "medium";
+    String SelectedDay = "Today";
+    
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton1.setSelected(true);
+        jToggleButton2.setSelected(false);
+        jToggleButton3.setSelected(false);
+        
+        SelectedType = "workout";
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jToggleButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton3ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton1.setSelected(false);
+        jToggleButton2.setSelected(false);
+        jToggleButton3.setSelected(true);
+        
+        SelectedType = "bike";
+    }//GEN-LAST:event_jToggleButton3ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton1.setSelected(false);
+        jToggleButton2.setSelected(true);
+        jToggleButton3.setSelected(false);
+        
+        SelectedType = "running";
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton6ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton4.setSelected(false);
+        jToggleButton5.setSelected(false);
+        jToggleButton6.setSelected(true);   
+        
+        SelectedLength = "short";
+    }//GEN-LAST:event_jToggleButton6ActionPerformed
+
+    private void jToggleButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton5ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton4.setSelected(false);
+        jToggleButton5.setSelected(true);
+        jToggleButton6.setSelected(false);   
+        
+        SelectedLength = "medium";
+    }//GEN-LAST:event_jToggleButton5ActionPerformed
+
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton4.setSelected(true);
+        jToggleButton5.setSelected(false);
+        jToggleButton6.setSelected(false);   
+        
+        SelectedLength = "long";
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
+
+    private void jToggleButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton7ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton7.setSelected(true);
+        jToggleButton8.setSelected(false);
+        
+        SelectedDay = "Today";
+    }//GEN-LAST:event_jToggleButton7ActionPerformed
+
+    private void jToggleButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton8ActionPerformed
+        // TODO add your handling code here:
+        jToggleButton7.setSelected(false);
+        jToggleButton8.setSelected(true);
+        
+        SelectedDay = "Yesterday";
+    }//GEN-LAST:event_jToggleButton8ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        int Date[] = rearth.raspi_HomeUI.Helpers.TimeService.getDate();
+        if (SelectedDay == "Yesterday") {
+            Date[0] -= 1;
+        }
+        Fitness.AddActivity(SelectedType, SelectedLength, Date);
+        
+        JLabel Labels[] = {ActivityData1, ActivityData2, ActivityData3, ActivityData4, ActivityData5};
+        Fitness.updatePanels(Labels);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -333,6 +492,15 @@ public class HomeUI_main extends javax.swing.JFrame {
     private javax.swing.JLabel WindLabel;
     private javax.swing.JLabel WolkenLabel;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JToggleButton jToggleButton5;
+    private javax.swing.JToggleButton jToggleButton6;
+    private javax.swing.JToggleButton jToggleButton7;
+    private javax.swing.JToggleButton jToggleButton8;
     // End of variables declaration//GEN-END:variables
 }
