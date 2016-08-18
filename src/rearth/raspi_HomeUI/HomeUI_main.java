@@ -8,7 +8,9 @@ package rearth.raspi_HomeUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import rearth.raspi_HomeUI.Helpers.Weather;
+import rearth.raspi_HomeUI.Helpers.Fitness;
 
 /**
  *
@@ -27,12 +29,15 @@ public class HomeUI_main extends javax.swing.JFrame {
         int date[] = rearth.raspi_HomeUI.Helpers.TimeService.getDate();
         int time[] = rearth.raspi_HomeUI.Helpers.TimeService.getTime();
         displayTime(date, time);
+        Weather.updateWeather();
+        Weather.showWeather(TemperaturLabel, Regenlabel, LuftLabel, WindLabel, OrtsLabel, WolkenLabel);
+        Fitness.init();
+        JLabel Labels[] = {ActivityData1, ActivityData2, ActivityData3, ActivityData4, ActivityData5};
+        Fitness.setPanels(Labels);
         
-        System.out.println(" ---------- Setting up periodic Funktions ----------");
+        System.out.println(" --------- Starting up periodic Funktions ----------");
         HalfMinTasks();
         QuarterHourTasks();
-        Weather.updateWeather();
-        Weather.showWeather(TemperaturLabel);
     }
     
     private void updateTime() {
@@ -99,13 +104,19 @@ public class HomeUI_main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         TimeDisplay = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        LuftFLabel = new javax.swing.JLabel();
+        WeatherPanel = new javax.swing.JPanel();
+        LuftLabel = new javax.swing.JLabel();
         Regenlabel = new javax.swing.JLabel();
         TemperaturLabel = new javax.swing.JLabel();
         WindLabel = new javax.swing.JLabel();
         WolkenLabel = new javax.swing.JLabel();
         OrtsLabel = new javax.swing.JLabel();
+        FitnessPanel = new javax.swing.JPanel();
+        ActivityData1 = new javax.swing.JLabel();
+        ActivityData2 = new javax.swing.JLabel();
+        ActivityData3 = new javax.swing.JLabel();
+        ActivityData4 = new javax.swing.JLabel();
+        ActivityData5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -126,7 +137,7 @@ public class HomeUI_main extends javax.swing.JFrame {
         TimeDisplay.setMinimumSize(new java.awt.Dimension(214, 104));
         TimeDisplay.setName(""); // NOI18N
 
-        LuftFLabel.setText("Luftfeuchte");
+        LuftLabel.setText("Luftfeuchte");
 
         Regenlabel.setText("Regen%");
 
@@ -138,39 +149,39 @@ public class HomeUI_main extends javax.swing.JFrame {
 
         OrtsLabel.setText("Ort");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout WeatherPanelLayout = new javax.swing.GroupLayout(WeatherPanel);
+        WeatherPanel.setLayout(WeatherPanelLayout);
+        WeatherPanelLayout.setHorizontalGroup(
+            WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WeatherPanelLayout.createSequentialGroup()
+                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WeatherPanelLayout.createSequentialGroup()
                         .addComponent(TemperaturLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Regenlabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(LuftFLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(LuftLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(WindLabel, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(WeatherPanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(WeatherPanelLayout.createSequentialGroup()
                                 .addComponent(WolkenLabel)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, WeatherPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(OrtsLabel)))))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        WeatherPanelLayout.setVerticalGroup(
+            WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(WeatherPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(WeatherPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(WeatherPanelLayout.createSequentialGroup()
                         .addComponent(Regenlabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LuftFLabel)
+                        .addComponent(LuftLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(WindLabel))
                     .addComponent(TemperaturLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
@@ -179,6 +190,48 @@ public class HomeUI_main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(WolkenLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ActivityData1.setText("jLabel2");
+
+        ActivityData2.setText("jLabel3");
+
+        ActivityData3.setText("jLabel4");
+
+        ActivityData4.setText("jLabel5");
+
+        ActivityData5.setText("jLabel6");
+
+        javax.swing.GroupLayout FitnessPanelLayout = new javax.swing.GroupLayout(FitnessPanel);
+        FitnessPanel.setLayout(FitnessPanelLayout);
+        FitnessPanelLayout.setHorizontalGroup(
+            FitnessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FitnessPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(FitnessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ActivityData5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ActivityData4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ActivityData3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FitnessPanelLayout.createSequentialGroup()
+                        .addComponent(ActivityData2, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                        .addGap(174, 174, 174))
+                    .addComponent(ActivityData1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        FitnessPanelLayout.setVerticalGroup(
+            FitnessPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FitnessPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ActivityData1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ActivityData2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ActivityData3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ActivityData4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ActivityData5, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -195,8 +248,10 @@ public class HomeUI_main extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(143, 143, 143)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(WeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(FitnessPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,9 +261,15 @@ public class HomeUI_main extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(TimeDisplay, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(158, 158, 158))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                        .addComponent(WeatherPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(158, 158, 158))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addComponent(FitnessPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         TimeDisplay.getAccessibleContext().setAccessibleName("Timename");
@@ -257,15 +318,21 @@ public class HomeUI_main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel LuftFLabel;
+    private javax.swing.JLabel ActivityData1;
+    private javax.swing.JLabel ActivityData2;
+    private javax.swing.JLabel ActivityData3;
+    private javax.swing.JLabel ActivityData4;
+    private javax.swing.JLabel ActivityData5;
+    private javax.swing.JPanel FitnessPanel;
+    private javax.swing.JLabel LuftLabel;
     private javax.swing.JLabel OrtsLabel;
     private javax.swing.JLabel Regenlabel;
     private javax.swing.JLabel TemperaturLabel;
     private javax.swing.JLabel TimeDisplay;
+    private javax.swing.JPanel WeatherPanel;
     private javax.swing.JLabel WindLabel;
     private javax.swing.JLabel WolkenLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

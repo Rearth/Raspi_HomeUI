@@ -1,0 +1,10 @@
+running-medium-13-07-2016
+bike-long-14-07-2016
+workout-short-15-07-2016
+bike-short-16-07-2016
+workout-medium-18-07-2016
+running-medium-13-08-2016
+bike-long-14-08-2016
+bike-short-15-08-2016
+running-short-16-08-2016
+workout-medium-18-08-2016

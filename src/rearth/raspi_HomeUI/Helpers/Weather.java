@@ -37,6 +37,7 @@ public class Weather {
     public static void updateWeather() {
         
         try {
+            System.out.println(" -------------------- Wetter: ----------------------");
             OpenWeatherMap owm = new OpenWeatherMap("e6bec647009bc6239203ead91b289219");
             CurrentWeather cwd = owm.currentWeatherByCityCode(2867164);
             
@@ -67,7 +68,6 @@ public class Weather {
             System.out.println("Regen: " + rain + " mm");
             System.out.println("Wolken: " + clouds + " %");
             System.out.println(Wolken);
-            System.out.println(" ------------------ Wetter Done ---------------------");
 
         } catch (JSONException ex) {
             Logger.getLogger(Weather.class.getName()).log(Level.SEVERE, null, ex);
